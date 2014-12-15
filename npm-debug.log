@@ -1,0 +1,128 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/mremolt/.nvm/v0.10.32/bin/node',
+1 verbose cli   '/Users/mremolt/.nvm/v0.10.32/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/Users/mremolt/workspace/angular-seed',
+5 verbose install   [ 'grunt',
+5 verbose install     'grunt-contrib-clean',
+5 verbose install     'grunt-contrib-connect',
+5 verbose install     'grunt-contrib-copy',
+5 verbose install     'grunt-contrib-watch',
+5 verbose install     'grunt-html-build',
+5 verbose install     'grunt-traceur',
+5 verbose install     'jit-grunt',
+5 verbose install     'time-grunt' ] ]
+6 info preinstall angular-seed@1.0.0
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping grunt-contrib-copy@^0.7.0 /Users/mremolt/workspace/angular-seed
+9 verbose already installed skipping grunt-contrib-watch@^0.6.1 /Users/mremolt/workspace/angular-seed
+10 verbose already installed skipping grunt-html-build@^0.3.2 /Users/mremolt/workspace/angular-seed
+11 verbose cache add [ 'grunt-traceur@git@github.com:jurca/grunt-traceur.git#master',
+11 verbose cache add   null ]
+12 verbose cache add name=undefined spec="grunt-traceur@git@github.com:jurca/grunt-traceur.git#master" args=["grunt-traceur@git@github.com:jurca/grunt-traceur.git#master",null]
+13 verbose parsed url { protocol: null,
+13 verbose parsed url   slashes: null,
+13 verbose parsed url   auth: null,
+13 verbose parsed url   host: null,
+13 verbose parsed url   port: null,
+13 verbose parsed url   hostname: null,
+13 verbose parsed url   hash: '#master',
+13 verbose parsed url   search: null,
+13 verbose parsed url   query: null,
+13 verbose parsed url   pathname: 'grunt-traceur@git@github.com:jurca/grunt-traceur.git',
+13 verbose parsed url   path: 'grunt-traceur@git@github.com:jurca/grunt-traceur.git',
+13 verbose parsed url   href: 'grunt-traceur@git@github.com:jurca/grunt-traceur.git#master' }
+14 verbose already installed skipping jit-grunt@^0.9.0 /Users/mremolt/workspace/angular-seed
+15 verbose already installed skipping time-grunt@^1.0.0 /Users/mremolt/workspace/angular-seed
+16 verbose cache add name="grunt-traceur" spec="git@github.com:jurca/grunt-traceur.git#master" args=["grunt-traceur","git@github.com:jurca/grunt-traceur.git#master"]
+17 verbose parsed url { protocol: null,
+17 verbose parsed url   slashes: null,
+17 verbose parsed url   auth: null,
+17 verbose parsed url   host: null,
+17 verbose parsed url   port: null,
+17 verbose parsed url   hostname: null,
+17 verbose parsed url   hash: '#master',
+17 verbose parsed url   search: null,
+17 verbose parsed url   query: null,
+17 verbose parsed url   pathname: 'git@github.com:jurca/grunt-traceur.git',
+17 verbose parsed url   path: 'git@github.com:jurca/grunt-traceur.git',
+17 verbose parsed url   href: 'git@github.com:jurca/grunt-traceur.git#master' }
+18 verbose addNamed [ 'grunt-traceur',
+18 verbose addNamed   'git@github.com:jurca/grunt-traceur.git#master' ]
+19 verbose addNamed [ null, null ]
+20 silly lockFile 2a1aa225-m-jurca-grunt-traceur-git-master grunt-traceur@git@github.com:jurca/grunt-traceur.git#master
+21 verbose lock grunt-traceur@git@github.com:jurca/grunt-traceur.git#master /Users/mremolt/.npm/2a1aa225-m-jurca-grunt-traceur-git-master.lock
+22 verbose already installed skipping grunt@^0.4.5 /Users/mremolt/workspace/angular-seed
+23 info addNameTag [ 'grunt-traceur',
+23 info addNameTag   'git@github.com:jurca/grunt-traceur.git#master' ]
+24 verbose already installed skipping grunt-contrib-clean@^0.6.0 /Users/mremolt/workspace/angular-seed
+25 verbose already installed skipping grunt-contrib-connect@^0.9.0 /Users/mremolt/workspace/angular-seed
+26 verbose request where is /grunt-traceur
+27 verbose request registry https://registry.npmjs.org/
+28 verbose request id eb16e600fb361e5a
+29 verbose url raw /grunt-traceur
+30 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-traceur' ]
+31 verbose url resolved https://registry.npmjs.org/grunt-traceur
+32 verbose request where is https://registry.npmjs.org/grunt-traceur
+33 info trying registry request attempt 1 at 17:52:27
+34 verbose etag "6KFTIS5FPMVGDSFRD803LET98"
+35 http GET https://registry.npmjs.org/grunt-traceur
+36 http 304 https://registry.npmjs.org/grunt-traceur
+37 silly registry.get cb [ 304,
+37 silly registry.get   { date: 'Mon, 15 Dec 2014 16:52:27 GMT',
+37 silly registry.get     server: 'Apache',
+37 silly registry.get     via: '1.1 varnish',
+37 silly registry.get     'last-modified': 'Mon, 15 Dec 2014 16:52:27 GMT',
+37 silly registry.get     'cache-control': 'max-age=60',
+37 silly registry.get     etag: '"6KFTIS5FPMVGDSFRD803LET98"',
+37 silly registry.get     age: '0',
+37 silly registry.get     'x-served-by': 'cache-fra1247-FRA',
+37 silly registry.get     'x-cache': 'MISS',
+37 silly registry.get     'x-cache-hits': '0',
+37 silly registry.get     'x-timer': 'S1418662347.112791,VS0,VE528',
+37 silly registry.get     vary: 'Accept',
+37 silly registry.get     'content-length': '0',
+37 silly registry.get     'keep-alive': 'timeout=10, max=50',
+37 silly registry.get     connection: 'Keep-Alive' } ]
+38 verbose etag https://registry.npmjs.org/grunt-traceur from cache
+39 info maybeGithub Attempting git@github.com:jurca/grunt-traceur.git#master from git://github.com/git@github.com:jurca/grunt-traceur.git#master
+40 silly lockFile 0af0adf7-thub-com-jurca-grunt-traceur-git git://github.com/git@github.com:jurca/grunt-traceur.git
+41 verbose lock git://github.com/git@github.com:jurca/grunt-traceur.git /Users/mremolt/.npm/0af0adf7-thub-com-jurca-grunt-traceur-git.lock
+42 verbose addRemoteGit [ 'git://github.com/git@github.com:jurca/grunt-traceur.git',
+42 verbose addRemoteGit   'master' ]
+43 verbose git clone git://github.com/git@github.com:jurca/grunt-traceur.git Cloning into bare repository '/Users/mremolt/.npm/_git-remotes/git-github-com-git-github-com-jurca-grunt-traceur-git-0af0adf7'...
+43 verbose git clone git://github.com/git@github.com:jurca/grunt-traceur.git fatal: remote error:
+43 verbose git clone git://github.com/git@github.com:jurca/grunt-traceur.git   git@github.com:jurca/grunt-traceur is not a valid repository name
+43 verbose git clone git://github.com/git@github.com:jurca/grunt-traceur.git   Email support@github.com for help
+44 silly lockFile 0af0adf7-thub-com-jurca-grunt-traceur-git git://github.com/git@github.com:jurca/grunt-traceur.git
+45 silly lockFile 0af0adf7-thub-com-jurca-grunt-traceur-git git://github.com/git@github.com:jurca/grunt-traceur.git
+46 info maybeGithub Attempting git@github.com:jurca/grunt-traceur.git#master from git+ssh://git@github.com:git@github.com:jurca/grunt-traceur.git#master
+47 silly lockFile f463e5ff-thub-com-jurca-grunt-traceur-git git@github.com:git@github.com:jurca/grunt-traceur.git
+48 verbose lock git@github.com:git@github.com:jurca/grunt-traceur.git /Users/mremolt/.npm/f463e5ff-thub-com-jurca-grunt-traceur-git.lock
+49 verbose addRemoteGit [ 'git@github.com:git@github.com:jurca/grunt-traceur.git',
+49 verbose addRemoteGit   'master' ]
+50 error git clone git@github.com:git@github.com:jurca/grunt-traceur.git Cloning into bare repository '/Users/mremolt/.npm/_git-remotes/git-github-com-git-github-com-jurca-grunt-traceur-git-f463e5ff'...
+50 error git clone git@github.com:git@github.com:jurca/grunt-traceur.git fatal: remote error:
+50 error git clone git@github.com:git@github.com:jurca/grunt-traceur.git    is not a valid repository name
+50 error git clone git@github.com:git@github.com:jurca/grunt-traceur.git   Email support@github.com for help
+51 silly lockFile f463e5ff-thub-com-jurca-grunt-traceur-git git@github.com:git@github.com:jurca/grunt-traceur.git
+52 silly lockFile f463e5ff-thub-com-jurca-grunt-traceur-git git@github.com:git@github.com:jurca/grunt-traceur.git
+53 silly lockFile 2a1aa225-m-jurca-grunt-traceur-git-master grunt-traceur@git@github.com:jurca/grunt-traceur.git#master
+54 silly lockFile 2a1aa225-m-jurca-grunt-traceur-git-master grunt-traceur@git@github.com:jurca/grunt-traceur.git#master
+55 error notarget No compatible version found: grunt-traceur@'git@github.com:jurca/grunt-traceur.git#master'
+55 error notarget Valid install targets:
+55 error notarget ["0.0.1","0.0.3","0.1.0","0.1.1","0.1.2","0.2.0","0.2.1","0.2.2","0.2.3","0.2.4","0.2.5","0.2.6","0.2.7","0.2.8","0.2.9","0.2.10","0.2.11","0.2.12"]
+55 error notarget
+55 error notarget This is most likely not a problem with npm itself.
+55 error notarget In most cases you or one of your dependencies are requesting
+55 error notarget a package version that doesn't exist.
+56 error System Darwin 14.0.0
+57 error command "/Users/mremolt/.nvm/v0.10.32/bin/node" "/Users/mremolt/.nvm/v0.10.32/bin/npm" "install"
+58 error cwd /Users/mremolt/workspace/angular-seed
+59 error node -v v0.10.32
+60 error npm -v 1.4.28
+61 error code ETARGET
+62 verbose exit [ 1, true ]

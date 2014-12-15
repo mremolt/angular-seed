@@ -1,4 +1,11 @@
-import dashboard from './dashboard/_dashboard.js';
+//import dashboard from './dashboard/_dashboard';
 
+var app = angular.module('dcsApp', [
+  'ui.router'
+]);
 
-console.log('AAAAAngular!');
+app.config(function () {
+  console.log('AAAAAngular!');
+});
+
+export default app;

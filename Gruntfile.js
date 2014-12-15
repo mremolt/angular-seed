@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     copy: {
       vendorJs: {
-        src: ['<%= vendorFiles.js %>'],
+        src: ['<%= vendorFiles.js %>', 'src/main.js', 'vendor/requirejs/require.js'],
         dest: '<%= devDir %>/'
       },
       assets: {
@@ -63,7 +63,10 @@ module.exports = function (grunt) {
 
     traceur: {
       options: {
-        blockBinding: true
+        blockBinding: true,
+        modules: 'amd',
+        moduleNames: true,
+        sourceBasePackage: 'src/app'
       },
       app: {
         files: [{
