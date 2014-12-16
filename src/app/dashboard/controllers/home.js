@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 class HomeController {
-  constructor($timeout) {
-    console.log('im constructor');
+  constructor($timeout, $scope) {
+    console.log('im constructor', this, $scope, 'wefergrth');
 
     $timeout(function () {
       _.each([1, 2, 3, 4], (function(n) {

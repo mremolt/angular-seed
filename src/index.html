@@ -6,7 +6,8 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <!-- build:style app -->
+  <!-- /build -->
 </head>
 <body>
 
@@ -17,8 +18,8 @@
 
 
 <div ng-view="main">
-  {{ 2 + 2 }}
-  <home name="Arthur"></home>
+  n: {{ 2 + 2 }}
+  <home first-name="'Arthur'"></home>
 </div>
 
 <script src="vendor/requirejs/require.js"></script>
