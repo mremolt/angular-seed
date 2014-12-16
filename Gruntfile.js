@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     copy: {
       vendorJs: {
-        src: ['<%= vendorFiles.js %>', 'src/main.js', 'vendor/requirejs/require.js'],
+        src: ['vendor/**/*.js', 'src/main.js'],
         dest: '<%= devDir %>/'
       },
       assets: {
@@ -61,12 +61,40 @@ module.exports = function (grunt) {
       production: {}
     },
 
+    ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
+      compile: {
+        files: [{
+          src: [userConfig.devDir + '/src/app/**/*.js'],
+          expand: true
+        }]
+      }
+    },
+
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: 'build/development/src/app',
+          mainConfigFile: 'src/main.js',
+          name: 'app',
+          out: userConfig.devDir + '/src/build.js',
+          optimize: 'uglify2',
+          uglify2: {
+            mangle: false
+          }
+        }
+      }
+    },
+
     traceur: {
       options: {
         blockBinding: true,
         modules: 'amd',
         moduleNames: true,
-        sourceBasePackage: 'src/app'
+        sourceBasePackage: 'src/app',
+        sourceMaps: true
       },
       app: {
         files: [{
@@ -83,5 +111,5 @@ module.exports = function (grunt) {
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
   // Default task(s).
-  grunt.registerTask('default', ['connect']);
+  grunt.registerTask('default', ['clean', 'copy:vendorJs', 'traceur', 'ngAnnotate', 'htmlbuild:development', 'requirejs', 'connect']);
 };

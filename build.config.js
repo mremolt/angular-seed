@@ -3,9 +3,6 @@ module.exports = {
   prodDir: 'build/production',
 
 
-
-
-
   vendorFiles: {
     js: [
       'vendor/traceur-runtime/traceur-runtime.js',

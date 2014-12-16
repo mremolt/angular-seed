@@ -1,3 +1,4 @@
-var app = angular.module('dcsApp.dashboard', []);
+import angular from 'angular';
 
-export default app;
+var mod = angular.module('dcsApp.dashboard', []);
+export default mod;
