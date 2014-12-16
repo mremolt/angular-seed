@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "angular-seed-1.0.0.css",
+	"sources": [
+		"../sass/main.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "AAAA,KAAK,KAED,QAAS,OACb,KAAK,MAED,QAAS",
+	"names": []
+}

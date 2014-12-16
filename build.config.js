@@ -24,8 +24,8 @@ module.exports = {
       'vendor/angular/angular.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-translate/angular-translate.js',
-      'vendor/angular-sanitize/angular-sanitize.js'
-      //'vendor/requirejs/require.js'
+      'vendor/angular-sanitize/angular-sanitize.js',
+      'vendor/requirejs/require.js'
     ]
   }
 };
