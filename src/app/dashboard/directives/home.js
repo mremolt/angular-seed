@@ -7,7 +7,7 @@ export default dashboard.directive('home', function ($rootScope) {
   console.log($rootScope);
 
   return {
-    template: '<h1>Hello {{ cn.firstName }}!!!!!!!!!!</h1>',
+    templateUrl: 'dashboard/templates/home.tpl.html',
     controller: Controller,
     controllerAs: 'cn',
     bindToController: true,

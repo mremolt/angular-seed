@@ -7,7 +7,8 @@ require.config({
     angular: '../../vendor/angular/angular',
     router: '../../vendor/angular-ui-router/release/angular-ui-router',
     angularTranslate: '../../vendor/angular-translate/angular-translate',
-    angularSanitize: '../../vendor/angular-sanitize/angular-sanitize'
+    angularSanitize: '../../vendor/angular-sanitize/angular-sanitize',
+    templates: '../../templates-app'
   },
   shim: {
     angular: {
@@ -15,6 +16,9 @@ require.config({
       deps: ['traceur']
     },
     'router':{
+      deps: ['angular']
+    },
+    'templates': {
       deps: ['angular']
     },
     traceur: {

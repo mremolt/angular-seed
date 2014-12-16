@@ -12,6 +12,20 @@ module.exports = function (grunt) {
   var userConfig = require('./build.config.js');
 
   var taskConfig = {
+
+    "bower-install-simple": {
+      options: {
+        color: true,
+        directory: "vendor",
+        forceLatest: true
+      },
+      dev: {
+        options: {
+          production: false
+        }
+      }
+    },
+
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
       production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep']
@@ -19,21 +33,13 @@ module.exports = function (grunt) {
 
     concurrent: {
       build: {
-        //tasks: ['bower-install', 'html2js', 'traceur:appjs', 'less:build'],
-        tasks: ['traceur', 'sass'],
+        tasks: ['bower-install', 'html2js', 'traceur:app', 'reBuildCss'],
         options: {
           logConcurrentOutput: false
         }
       },
-      rebuildjs: {
-        tasks: [
-          //'newer:jshint:src',
-          //'newer:traceur:appjs'
-        ]
-      },
       firstrun: {
-        tasks: ['index:development']
-        //tasks: ['index:development', 'karmaconfig']
+        tasks: ['build']
       }
     },
 
@@ -44,9 +50,9 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= devDir %>',
-          keepalive: true,
+          keepalive: false,
           debug: false,
-          livereload: false,
+          livereload: true,
           open: false
         }
       }
@@ -87,7 +93,8 @@ module.exports = function (grunt) {
         files: 'Gruntfile.js',
         tasks: ['jshint:gruntfile'],
         options: {
-          livereload: false
+          spawn: true,
+          livereload: true
         }
       },
 
@@ -98,15 +105,38 @@ module.exports = function (grunt) {
 
       sass: {
         files: ['src/sass/*.scss'],
-        tasks: ['sass']
+        tasks: ['reBuildCss']
       },
 
       scripts: {
-        files: ['src/app/**/*.js'],
+        files: ['<%= appFiles.js %>'],
         tasks: ['traceur:app'],
         options: {
-          spawn: false
+          spawn: false,
+          livereload: true
         }
+      },
+
+      templates: {
+        files: [
+          '<%= appFiles.atpl %>',
+          '<%= appFiles.ctpl %>'
+        ],
+        tasks: ['html2js'],
+        options: {
+          spawn: false,
+          livereload: true
+        }
+      }
+    },
+
+    html2js: {
+      app: {
+        options: {
+          base: 'src/app'
+        },
+        src: ['<%= appFiles.atpl %>'],
+        dest: '<%= devDir %>/templates-app.js'
       }
     },
 
@@ -126,7 +156,8 @@ module.exports = function (grunt) {
           },
           scripts: {
             app: {
-
+              cwd: '<%= devDir %>',
+              files: []
             }
           }
         }
@@ -147,7 +178,7 @@ module.exports = function (grunt) {
           scripts: {
             app: {
               cwd: '<%= prodDir %>',
-              files: ['src/build.js']
+              files: ['templates-app.js', 'src/build.js']
             }
           }
         }
@@ -246,16 +277,19 @@ module.exports = function (grunt) {
 
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
+  // Default task(s).
+
+  grunt.registerTask('build', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index', 'connect']);
+  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index', 'requirejs', 'connect']);
+  grunt.registerTask('default', ['build']);
+
+  grunt.registerTask('reBuildCss', ['sass', 'cssmin']);
+
   grunt.registerTask("bower-install", [ "bower-install-simple" ]);
 
   grunt.renameTask('watch', 'delta');
-  grunt.registerTask('watch', ['concurrent:firstrun', 'delta']);
+
+  grunt.registerTask('watch', ['build', 'delta']);
 
   grunt.renameTask('htmlbuild', 'index');
-
-  // Default task(s).
-  grunt.registerTask('build', ['clean', 'sass', 'copy', 'cssmin', 'traceur', 'index', 'connect']);
-  grunt.registerTask('compile', ['clean', 'sass', 'copy', 'cssmin', 'traceur', 'ngAnnotate', 'index', 'requirejs', 'connect']);
-  grunt.registerTask('default', ['build']);
-
 };
