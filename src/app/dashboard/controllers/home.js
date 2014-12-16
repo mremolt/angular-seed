@@ -1,8 +1,9 @@
 import _ from 'lodash';
+import mod from '../_dashboard';
 
 class HomeController {
-  constructor($timeout, $scope) {
-    console.log('im constructor', this, $scope, 'wefergrth');
+  constructor($timeout) {
+    console.log('im constructor', this, 'wefergrth');
 
     $timeout(function () {
       _.each([1, 2, 3, 4], (function(n) {

@@ -12,7 +12,8 @@ export default dashboard.directive('home', function ($rootScope) {
     controllerAs: 'cn',
     bindToController: true,
     scope: {
-      firstName: '='
+      firstName: '=',
+      lastName: '='
     }
   }
 });

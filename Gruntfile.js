@@ -119,11 +119,39 @@ module.exports = function (grunt) {
           relative: false,
           logOptions: true,
           styles: {
-            app: ['src/assets/<%= pkg.name %>-<%= pkg.version %>.css']
+            app: {
+              cwd: '<%= devDir %>',
+              files: ['src/assets/<%= pkg.name %>-<%= pkg.version %>.css']
+            }
+          },
+          scripts: {
+            app: {
+
+            }
           }
         }
       },
-      production: {}
+      production: {
+        src: 'src/index.html',
+        dest: '<%= prodDir %>/',
+        options: {
+          beautify: true,
+          relative: false,
+          logOptions: true,
+          styles: {
+            app: {
+              cwd: '<%= prodDir %>',
+              files: ['src/assets/<%= pkg.name %>-<%= pkg.version %>.css']
+            }
+          },
+          scripts: {
+            app: {
+              cwd: '<%= prodDir %>',
+              files: ['src/build.js']
+            }
+          }
+        }
+      }
     },
 
     ngAnnotate: {
@@ -191,7 +219,7 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'src/assets/<%= pkg.name %>-<%= pkg.version %>.css': 'src/sass/main.scss'
+          '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css': 'src/sass/main.scss'
         }
       }
     },
@@ -226,7 +254,7 @@ module.exports = function (grunt) {
   grunt.renameTask('htmlbuild', 'index');
 
   // Default task(s).
-  grunt.registerTask('build', ['clean', 'sass', 'copy', 'cssmin', 'traceur', 'ngAnnotate', 'index', 'connect']);
+  grunt.registerTask('build', ['clean', 'sass', 'copy', 'cssmin', 'traceur', 'index', 'connect']);
   grunt.registerTask('compile', ['clean', 'sass', 'copy', 'cssmin', 'traceur', 'ngAnnotate', 'index', 'requirejs', 'connect']);
   grunt.registerTask('default', ['build']);
 
