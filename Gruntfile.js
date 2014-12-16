@@ -279,8 +279,8 @@ module.exports = function (grunt) {
 
   // Default task(s).
 
-  grunt.registerTask('build', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index', 'connect']);
-  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index', 'requirejs', 'connect']);
+  grunt.registerTask('build', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index:development', 'connect']);
+  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index:production', 'requirejs', 'connect']);
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('reBuildCss', ['sass', 'cssmin']);
