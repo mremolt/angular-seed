@@ -55,6 +55,18 @@ module.exports = function (grunt) {
           livereload: true,
           open: false
         }
+      },
+      production: {
+        options: {
+          protocol: 'http',
+          hostname: '0.0.0.0',
+          port: 3000,
+          base: '<%= prodDir %>',
+          keepalive: true,
+          debug: false,
+          livereload: false,
+          open: false
+        }
       }
     },
 
@@ -71,6 +83,24 @@ module.exports = function (grunt) {
         src: ['**'],
         dest: '<%= devDir %>/src/assets',
         cwd: 'src/assets',
+        expand: true
+      },
+      assetsProd: {
+        src: ['**'],
+        dest: '<%= prodDir %>/src/assets',
+        cwd: '<%= devDir %>/src/assets',
+        expand: true
+      },
+      jsProd: {
+        cwd: '<%= devDir %>',
+        src: ['src/build.js', 'src/main.js'],
+        dest: '<%= prodDir %>',
+        expand: true
+      },
+      require: {
+        cwd: '<%= devDir %>/vendor/requirejs',
+        src: ['require.js'],
+        dest: '<%= prodDir %>/vendor/requirejs',
         expand: true
       }
     },
@@ -203,7 +233,7 @@ module.exports = function (grunt) {
           baseUrl: 'build/development/src/app',
           mainConfigFile: 'src/main.js',
           name: 'app',
-          out: userConfig.devDir + '/src/build.js',
+          out: userConfig.prodDir + '/src/build.js',
           optimize: 'uglify2',
           uglify2: {
             mangle: false
@@ -279,11 +309,14 @@ module.exports = function (grunt) {
 
   // Default task(s).
 
-  grunt.registerTask('build', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index:development', 'connect']);
-  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index:production', 'requirejs', 'connect']);
+  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'index:development', 'connect:development']);
+  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production', 'connect:production']);
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('reBuildCss', ['sass', 'cssmin']);
+
+  grunt.registerTask('copyDev', ['copy:vendorJs', 'copy:vendorCss', 'copy:assets']);
+  grunt.registerTask('copyProd', ['copy:assetsProd', 'copy:jsProd', 'copy:require']);
 
   grunt.registerTask("bower-install", [ "bower-install-simple" ]);
 
