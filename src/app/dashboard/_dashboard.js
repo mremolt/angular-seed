@@ -1,5 +1,6 @@
 import angular from 'angular';
 import router from 'router';
+import chuck from 'chuck/chuck';
 
 var mod = angular.module('dcsApp.dashboard', [
   'ui.router',
