@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 
     concurrent: {
       build: {
-        tasks: ['bower-install', 'html2js', 'traceur:app', 'reBuildCss'],
+        tasks: ['bower-install', 'html2js', 'traceur:app', 'sass', 'cssmin'],
         options: {
           logConcurrentOutput: false
         }
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= devDir %>',
-          keepalive: false,
+          keepalive: true,
           debug: false,
           livereload: false,
           open: false
@@ -115,8 +115,7 @@ module.exports = function (grunt) {
     cssmin: {
       combine: {
         files: {
-          '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css':
-            ['<%= vendorFiles.css %>', '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css']
+          '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css': ['<%= vendorFiles.css %>', '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css']
         }
       }
     },
@@ -132,26 +131,35 @@ module.exports = function (grunt) {
       },
 
       html: {
-        files: ['<%= appFiles.html %>'],
+        files: userConfig.appFiles.html,
         tasks: ['index:development']
       },
 
       sass: {
         files: ['src/sass/*.scss'],
-        tasks: ['reBuildCss']
+        tasks: ['sass', 'cssmin']
       },
 
       scripts: {
         files: userConfig.appFiles.js,
-        tasks: ['newer:traceur:app'],
+        tasks: [
+          'newer:jshint:src',
+          'newer:traceur:app'
+        ],
         options: {
-          event: ['changed', 'added']
+          event: [
+            'changed',
+            'added'
+          ]
         }
       },
 
       deletedScripts: {
         files: userConfig.appFiles.js,
-        tasks: ['reBuildJs'],
+        tasks: [
+          'clean:js',
+          'traceur:app'
+        ],
         options: {
           event: ['deleted']
         }
@@ -223,7 +231,10 @@ module.exports = function (grunt) {
           scripts: {
             app: {
               cwd: '<%= prodDir %>',
-              files: ['templates-app.js', 'src/build.js']
+              files: [
+                'templates-app.js',
+                'src/build.js'
+              ]
             },
             require: {
               cwd: '<%= prodDir %>',
@@ -243,6 +254,20 @@ module.exports = function (grunt) {
           src: [userConfig.devDir + '/src/app/**/*.js'],
           expand: true
         }]
+      }
+    },
+
+    ngdocs: {
+      options: {
+        html5Mode: false,
+        startPage: '/'
+      },
+      api: {
+        src: [
+          'src/**/*.js',
+          '!src/**/*.spec.js'
+        ],
+        title: 'API Documentation'
       }
     },
 
@@ -341,15 +366,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['build']);
 
-  grunt.registerTask('reBuildCss', ['sass', 'cssmin']);
-
-  grunt.registerTask('reBuildJs', ['clean:js', 'traceur:app']);
-
   grunt.registerTask('copyDev', ['copy:vendorJs', 'copy:vendorCss', 'copy:assets']);
 
   grunt.registerTask('copyProd', ['copy:assetsProd', 'copy:jsProd', 'copy:almond']);
 
-  grunt.registerTask("bower-install", [ "bower-install-simple" ]);
+  grunt.registerTask("bower-install", ["bower-install-simple"]);
 
   grunt.registerTask('watch', ['build', 'delta']);
 };
