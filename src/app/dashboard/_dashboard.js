@@ -7,17 +7,13 @@ var mod = angular.module('dcsApp.dashboard', [
 ]);
 
 mod.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/home");
+  $urlRouterProvider.otherwise("/home");
 
-    $stateProvider
-      .state('home', {
-        url: '/home',
-        templateUrl: 'dashboard/templates/homeController.tpl.html',
-        controller: function () {
-          console.log('hierrrrr');
-        }
-      });
-
-  });
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: 'dashboard/templates/homeController.tpl.html'
+    });
+});
 
 export default mod;

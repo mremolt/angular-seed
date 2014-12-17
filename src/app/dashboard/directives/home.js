@@ -3,6 +3,7 @@ import dashboard from '../_dashboard';
 import Controller from '../controllers/home';
 import categoriesDirective from 'chuck/category/directives/categories';
 import jokeDirective from 'chuck/joke/directives/joke';
+import jokesListDirective from 'chuck/joke/directives/jokesList';
 
 
 export default dashboard.directive('home', function () {

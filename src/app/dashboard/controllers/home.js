@@ -5,7 +5,12 @@ import Joke from 'chuck/models/Joke';
 class HomeController {
 
   constructor($interval) {
+    this.numberOfJokes = 0;
     this.showRandomJoke();
+
+    Joke.count().then(number => {
+      this.numberOfJokes = number;
+    });
 
     $interval(() => {
       this.showRandomJoke();

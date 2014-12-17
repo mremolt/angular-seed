@@ -1,12 +1,12 @@
 import mod from 'chuck/chuck';
-//import Controller from '../controllers/joke';
-debugger;
+import Controller from '../controllers/jokesList';
 
-mod.directive('jokesList', function () {
+
+export default mod.directive('jokesList', function () {
 
   return {
     templateUrl: 'chuck/joke/templates/jokesList.tpl.html',
-    //controller: Controller,
+    controller: Controller,
     controllerAs: 'cn',
     bindToController: true,
     scope: {

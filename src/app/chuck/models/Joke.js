@@ -52,7 +52,7 @@ class Joke {
   }
 
   static findByCategory(category) {
-    return restBackend.get(`${this.url}/jokes/random?limitTo=[${category.name}]`).then(response => {
+    return restBackend.get(`${this.url}/jokes/random?limitTo=[${category}]`).then(response => {
       return _.collect(response.data.value, data => {
         return new this(data);
       });

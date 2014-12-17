@@ -1,19 +1,19 @@
 import angular from 'angular';
 import router from 'router';
+import CategoryController from 'chuck/controllers/CategoryController';
+
 
 var mod = angular.module('dcsApp.chuck', [
   'ui.router'
 ]);
 
-mod.config(function ($stateProvider, $urlRouterProvider) {
+mod.config(function ($stateProvider) {
 
   $stateProvider
     .state('category', {
       url: '/categories/:categoryName',
       templateUrl: 'chuck/templates/listCategory.tpl.html',
-      controller: function ($stateParams) {
-        this.categoryName = $stateParams.categoryName;
-      },
+      controller: CategoryController,
       controllerAs: 'cn'
     });
 

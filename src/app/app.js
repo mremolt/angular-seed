@@ -14,8 +14,8 @@ var app = angular.module('dcsApp', [
   'dcsApp.backend'
 ]);
 
-app.config(function () {
-  console.log('AAAAAngular?????');
+app.run(function ($log) {
+  $log.log('app initialized!');
 });
 
 export default app;

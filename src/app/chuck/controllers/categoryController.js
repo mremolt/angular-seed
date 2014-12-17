@@ -1,6 +1,9 @@
+//import 'chuck/joke/directives/jokesList';
 
 class CategoryController {
-  constructor() {
-
+  constructor($stateParams) {
+    this.categoryName = $stateParams.categoryName;
   };
 }
+
+export default CategoryController;
