@@ -1,6 +1,7 @@
 import angular from 'angular';
+import restBackend from './services/restBackend';
 
 export default angular.module('dcsApp.backend', [])
-  .config(() => {
-
+  .run(function ($http) {
+    restBackend.setHttp($http);
   });

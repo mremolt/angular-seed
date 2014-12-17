@@ -358,13 +358,15 @@ module.exports = function (grunt) {
 
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
+
   // renamed task(s).
 
   grunt.renameTask('watch', 'delta');
 
   grunt.renameTask('htmlbuild', 'index');
+  
 
-  // tasks
+  // Default task(s).
 
   grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
 
