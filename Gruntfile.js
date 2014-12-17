@@ -31,7 +31,8 @@ module.exports = function (grunt) {
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
       production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep'],
-      js: ['<%= devDir %>/**/*.js', '<%= devDir %>/**/*.js.map']
+      js: ['<%= devDir %>/**/*.js', '<%= devDir %>/**/*.js.map'],
+      vendor: ['<%= devDir %>/vendor']
     },
 
     concurrent: {
@@ -55,7 +56,7 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= devDir %>',
-          keepalive: true,
+          keepalive: false,
           debug: false,
           livereload: false,
           open: false
@@ -67,7 +68,7 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= prodDir %>',
-          keepalive: true,
+          keepalive: false,
           debug: false,
           livereload: false,
           open: false
@@ -122,6 +123,9 @@ module.exports = function (grunt) {
 
     /** renamed grunt-watch **/
     delta: {
+      options: {
+        livereload: true
+      },
       gruntfile: {
         files: 'Gruntfile.js',
         tasks: ['jshint:gruntfile'],
@@ -142,10 +146,7 @@ module.exports = function (grunt) {
 
       scripts: {
         files: userConfig.appFiles.js,
-        tasks: [
-          'newer:jshint:src',
-          'newer:traceur:app'
-        ],
+        tasks: ['copy:vendorJs','newer:traceur:app'],
         options: {
           event: [
             'changed',
@@ -174,6 +175,11 @@ module.exports = function (grunt) {
         options: {
           spawn: false
         }
+      },
+
+      bower: {
+        files: 'bower.json',
+        tasks: ['bower-install', 'clean:vendor', 'copy:vendorJs', 'copy:vendorCss']
       }
     },
 
