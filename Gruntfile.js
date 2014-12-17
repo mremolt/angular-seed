@@ -31,12 +31,8 @@ module.exports = function (grunt) {
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
       production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep'],
-<<<<<<< HEAD
-      js: ['<%= devDir %>/src/**/*.js', '<%= devDir %>/src/**/*.js.map']
-=======
       js: ['<%= devDir %>/**/*.js', '<%= devDir %>/**/*.js.map'],
       vendor: ['<%= devDir %>/vendor']
->>>>>>> 0429ef002b169b6ad516aca6458d58b11a960617
     },
 
     concurrent: {
@@ -150,14 +146,7 @@ module.exports = function (grunt) {
 
       scripts: {
         files: userConfig.appFiles.js,
-<<<<<<< HEAD
-        tasks: [
-          //'newer:jshint:src',
-          'newer:traceur:app'
-        ],
-=======
         tasks: ['copy:vendorJs','newer:traceur:app'],
->>>>>>> 0429ef002b169b6ad516aca6458d58b11a960617
         options: {
           event: [
             'changed',
