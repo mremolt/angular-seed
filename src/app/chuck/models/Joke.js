@@ -1,4 +1,4 @@
-import restBackend from '../../backend/services/restBackend';
+import restBackend from 'backend/services/restBackend';
 import Category from './Category';
 import _ from 'lodash';
 
@@ -19,6 +19,12 @@ class Joke {
   get categories() {
     return _.collect(this.data.categories, cat => {
       return new Category(cat);
+    });
+  }
+
+  get categoryNames() {
+    return _.collect(this.categories, cat => {
+      return cat.name;
     });
   }
 

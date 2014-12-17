@@ -31,7 +31,7 @@ module.exports = function (grunt) {
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
       production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep'],
-      js: ['<%= devDir %>/**/*.js', '<%= devDir %>/**/*.js.map']
+      js: ['<%= devDir %>/src/**/*.js', '<%= devDir %>/src/**/*.js.map']
     },
 
     concurrent: {
@@ -55,9 +55,9 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= devDir %>',
-          keepalive: true,
+          keepalive: false,
           debug: false,
-          livereload: false,
+          livereload: true,
           open: false
         }
       },
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= prodDir %>',
-          keepalive: true,
+          keepalive: false,
           debug: false,
           livereload: false,
           open: false
@@ -122,6 +122,9 @@ module.exports = function (grunt) {
 
     /** renamed grunt-watch **/
     delta: {
+      options: {
+        livereload: true
+      },
       gruntfile: {
         files: 'Gruntfile.js',
         tasks: ['jshint:gruntfile'],
@@ -143,7 +146,7 @@ module.exports = function (grunt) {
       scripts: {
         files: userConfig.appFiles.js,
         tasks: [
-          'newer:jshint:src',
+          //'newer:jshint:src',
           'newer:traceur:app'
         ],
         options: {
@@ -358,7 +361,7 @@ module.exports = function (grunt) {
   grunt.renameTask('watch', 'delta');
 
   grunt.renameTask('htmlbuild', 'index');
-  
+
 
   // Default task(s).
 

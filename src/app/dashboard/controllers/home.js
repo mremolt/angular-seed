@@ -1,5 +1,6 @@
 import mod from '../_dashboard';
-import Joke from '../../chuck/models/Joke';
+import Joke from 'chuck/models/Joke';
+
 
 class HomeController {
 

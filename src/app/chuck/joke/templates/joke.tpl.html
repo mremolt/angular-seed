@@ -1,0 +1,5 @@
+<p ng-bind-html="cn.model.text"></p>
+
+<small ng-show="cn.model.categories.length > 0">
+  posted in: {{ cn.model.categoryNames.join(', ') }}
+</small>

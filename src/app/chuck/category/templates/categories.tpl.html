@@ -1,0 +1,5 @@
+<ul>
+  <li ng-repeat="category in cn.categories">
+    <a ui-sref="category({ categoryName: category.name })" ui-sref-active="active">{{ category.name }}</a>
+  </li>
+</ul>

@@ -1,4 +1,4 @@
-import restBackend from '../../backend/services/restBackend';
+import restBackend from 'backend/services/restBackend';
 
 
 class Category {
