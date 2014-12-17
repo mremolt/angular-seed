@@ -30,7 +30,8 @@ module.exports = function (grunt) {
     /** cleans up the given directories **/
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
-      production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep']
+      production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep'],
+      js: ['<%= devDir %>/**/*.js', '<%= devDir %>/**/*.js.map']
     },
 
     concurrent: {
@@ -56,7 +57,7 @@ module.exports = function (grunt) {
           base: '<%= devDir %>',
           keepalive: false,
           debug: false,
-          livereload: true,
+          livereload: false,
           open: false
         }
       },
@@ -122,16 +123,11 @@ module.exports = function (grunt) {
 
     /** renamed grunt-watch **/
     delta: {
-      options: {
-        livereload: true
-      },
-
       gruntfile: {
         files: 'Gruntfile.js',
         tasks: ['jshint:gruntfile'],
         options: {
-          spawn: true,
-          livereload: true
+          spawn: true
         }
       },
 
@@ -146,11 +142,18 @@ module.exports = function (grunt) {
       },
 
       scripts: {
-        files: ['<%= appFiles.js %>'],
-        tasks: ['traceur:app'],
+        files: userConfig.appFiles.js,
+        tasks: ['newer:traceur:app'],
         options: {
-          spawn: false,
-          livereload: true
+          event: ['changed', 'added']
+        }
+      },
+
+      deletedScripts: {
+        files: userConfig.appFiles.js,
+        tasks: ['reBuildJs'],
+        options: {
+          event: ['deleted']
         }
       },
 
@@ -161,8 +164,7 @@ module.exports = function (grunt) {
         ],
         tasks: ['html2js'],
         options: {
-          spawn: false,
-          livereload: true
+          spawn: false
         }
       }
     },
@@ -325,15 +327,23 @@ module.exports = function (grunt) {
 
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
-  // Default task(s).
+  // renamed task(s).
 
-  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'index:development', 'connect:development']);
+  grunt.renameTask('watch', 'delta');
+
+  grunt.renameTask('htmlbuild', 'index');
+
+  // tasks
+
+  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
 
   grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production', 'connect:production']);
 
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('reBuildCss', ['sass', 'cssmin']);
+
+  grunt.registerTask('reBuildJs', ['clean:js', 'traceur:app']);
 
   grunt.registerTask('copyDev', ['copy:vendorJs', 'copy:vendorCss', 'copy:assets']);
 
@@ -342,8 +352,4 @@ module.exports = function (grunt) {
   grunt.registerTask("bower-install", [ "bower-install-simple" ]);
 
   grunt.registerTask('watch', ['build', 'delta']);
-
-  grunt.renameTask('watch', 'delta');
-
-  grunt.renameTask('htmlbuild', 'index');
 };

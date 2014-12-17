@@ -29,6 +29,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-html-build": "^0.3.2",
     "grunt-html2js": "^0.2.9",
+    "grunt-newer": "^0.8.0",
     "grunt-ng-annotate": "^0.8.0",
     "grunt-sass": "^0.17.0",
     "grunt-traceur": "git://github.com/jurca/grunt-traceur.git#master",
