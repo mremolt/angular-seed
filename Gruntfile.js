@@ -159,7 +159,10 @@ module.exports = function (grunt) {
         files: userConfig.appFiles.js,
         tasks: [
           'clean:js',
-          'traceur:app'
+          'clean:vendor',
+          'traceur:app',
+          'copy:vendorJs',
+          'html2js'
         ],
         options: {
           event: ['deleted']
