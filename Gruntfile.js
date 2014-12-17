@@ -3,16 +3,17 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   require('jit-grunt')(grunt);
 
-  // the watch task (because of rename) can't be autoloaded
+  /** the watch task (because of rename) can't be autoloaded **/
   grunt.loadNpmTasks('grunt-contrib-watch');
+  /** same with html-build (we name it index) **/
   grunt.loadNpmTasks('grunt-html-build');
 
-  var target = grunt.option('target') || 'development';
-
+  /** load build configuration depending on project structure **/
   var userConfig = require('./build.config.js');
 
   var taskConfig = {
 
+    /** installs bower_modules into vendor directory **/
     "bower-install-simple": {
       options: {
         color: true,
@@ -26,6 +27,7 @@ module.exports = function (grunt) {
       }
     },
 
+    /** cleans up the given directories **/
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
       production: ['<%= prodDir %>/*', '!<%= prodDir %>/.gitkeep']
@@ -43,6 +45,8 @@ module.exports = function (grunt) {
       }
     },
 
+
+    /** start a server with livereload **/
     connect: {
       development: {
         options: {
@@ -55,9 +59,22 @@ module.exports = function (grunt) {
           livereload: true,
           open: false
         }
+      },
+      production: {
+        options: {
+          protocol: 'http',
+          hostname: '0.0.0.0',
+          port: 3000,
+          base: '<%= prodDir %>',
+          keepalive: true,
+          debug: false,
+          livereload: false,
+          open: false
+        }
       }
     },
 
+    /** copy files **/
     copy: {
       vendorJs: {
         src: ['vendor/**/*.js', 'src/main.js'],
@@ -72,9 +89,28 @@ module.exports = function (grunt) {
         dest: '<%= devDir %>/src/assets',
         cwd: 'src/assets',
         expand: true
+      },
+      assetsProd: {
+        src: ['**'],
+        dest: '<%= prodDir %>/src/assets',
+        cwd: '<%= devDir %>/src/assets',
+        expand: true
+      },
+      jsProd: {
+        cwd: '<%= devDir %>',
+        src: ['src/build.js', 'src/main.js'],
+        dest: '<%= prodDir %>',
+        expand: true
+      },
+      almond: {
+        cwd: '<%= devDir %>/vendor/almond',
+        src: ['almond.js'],
+        dest: '<%= prodDir %>/vendor/almond/',
+        expand: true
       }
     },
 
+    /** minify and combine css files **/
     cssmin: {
       combine: {
         files: {
@@ -84,6 +120,7 @@ module.exports = function (grunt) {
       }
     },
 
+    /** renamed grunt-watch **/
     delta: {
       options: {
         livereload: true
@@ -130,6 +167,7 @@ module.exports = function (grunt) {
       }
     },
 
+    /** render all template files into angularJs modules **/
     html2js: {
       app: {
         options: {
@@ -140,6 +178,7 @@ module.exports = function (grunt) {
       }
     },
 
+    /** create index.html while replacing placeholders **/
     index: {
       development: {
         src: 'src/index.html',
@@ -158,6 +197,10 @@ module.exports = function (grunt) {
             app: {
               cwd: '<%= devDir %>',
               files: []
+            },
+            require: {
+              cwd: '<%= devDir %>',
+              files: ['vendor/requirejs/require.js']
             }
           }
         }
@@ -179,6 +222,10 @@ module.exports = function (grunt) {
             app: {
               cwd: '<%= prodDir %>',
               files: ['templates-app.js', 'src/build.js']
+            },
+            require: {
+              cwd: '<%= prodDir %>',
+              files: ['vendor/almond/almond.js']
             }
           }
         }
@@ -197,13 +244,14 @@ module.exports = function (grunt) {
       }
     },
 
+    /** does the compile job meanwhile (we'll switch to almond in production) **/
     requirejs: {
       compile: {
         options: {
           baseUrl: 'build/development/src/app',
           mainConfigFile: 'src/main.js',
           name: 'app',
-          out: userConfig.devDir + '/src/build.js',
+          out: userConfig.prodDir + '/src/build.js',
           optimize: 'uglify2',
           uglify2: {
             mangle: false
@@ -279,17 +327,23 @@ module.exports = function (grunt) {
 
   // Default task(s).
 
-  grunt.registerTask('build', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index:development', 'connect']);
-  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copy', 'ngAnnotate', 'index:production', 'requirejs', 'connect']);
+  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'index:development', 'connect:development']);
+
+  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production', 'connect:production']);
+
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('reBuildCss', ['sass', 'cssmin']);
 
+  grunt.registerTask('copyDev', ['copy:vendorJs', 'copy:vendorCss', 'copy:assets']);
+
+  grunt.registerTask('copyProd', ['copy:assetsProd', 'copy:jsProd', 'copy:almond']);
+
   grunt.registerTask("bower-install", [ "bower-install-simple" ]);
 
-  grunt.renameTask('watch', 'delta');
-
   grunt.registerTask('watch', ['build', 'delta']);
+
+  grunt.renameTask('watch', 'delta');
 
   grunt.renameTask('htmlbuild', 'index');
 };
