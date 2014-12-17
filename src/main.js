@@ -1,5 +1,6 @@
 require.config({
   baseUrl: 'src/app',
+
   paths: {
     traceur: '../../vendor/traceur-runtime/traceur-runtime',
     lodash: '../../vendor/lodash/dist/lodash',
@@ -10,12 +11,16 @@ require.config({
     angularSanitize: '../../vendor/angular-sanitize/angular-sanitize',
     templates: '../../templates-app'
   },
+
   shim: {
     angular: {
       exports: 'angular',
       deps: ['traceur']
     },
     'router':{
+      deps: ['angular']
+    },
+    'angularSanitize':{
       deps: ['angular']
     },
     'templates': {

@@ -325,9 +325,15 @@ module.exports = function (grunt) {
 
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
+  grunt.renameTask('watch', 'delta');
+
+  grunt.renameTask('htmlbuild', 'index');
+
+
+
   // Default task(s).
 
-  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'index:development', 'connect:development']);
+  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
 
   grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production', 'connect:production']);
 
@@ -343,7 +349,4 @@ module.exports = function (grunt) {
 
   grunt.registerTask('watch', ['build', 'delta']);
 
-  grunt.renameTask('watch', 'delta');
-
-  grunt.renameTask('htmlbuild', 'index');
 };
