@@ -373,7 +373,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
 
-  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production', 'connect:production']);
+  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production']);
 
   grunt.registerTask('default', ['build']);
 
