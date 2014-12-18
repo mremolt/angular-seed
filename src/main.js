@@ -3,7 +3,6 @@ require.config({
 
   paths: {
     traceur: '../../vendor/traceur-runtime/traceur-runtime',
-    domReady: '../../vendor/requirejs-domready/domReady',
     lodash: '../../vendor/lodash/dist/lodash',
     moment: '../../vendor/moment/min/moment-with-locales',
     angular: '../../vendor/angular/angular',
