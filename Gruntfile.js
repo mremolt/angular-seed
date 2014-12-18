@@ -53,19 +53,19 @@ module.exports = function (grunt) {
       development: {
         options: {
           protocol: 'http',
-          hostname: 'localhost',
+          hostname: '0.0.0.0',
           port: 3000,
           base: '<%= devDir %>',
           keepalive: false,
           debug: false,
-          livereload: true,
+          livereload: false,
           open: false
         }
       },
       production: {
         options: {
           protocol: 'http',
-          hostname: 'localhost',
+          hostname: '0.0.0.0',
           port: 3000,
           base: '<%= prodDir %>',
           keepalive: false,

@@ -14,8 +14,8 @@ var app = angular.module('dcsApp', [
   'dcsApp.backend'
 ]);
 
-app.run(function ($log) {
-  $log.log('app initialized!');
+app.config(function($httpProvider) {
+  $httpProvider.defaults.useXDomain = true;
 });
 
 export default app;

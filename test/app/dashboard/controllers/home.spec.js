@@ -4,7 +4,7 @@ import angularMocks from 'angularMocks';
 import Joke from 'chuck/models/Joke';
 
 
-describe('foo', function () {
+describe('HomeController', function () {
 
   var $interval;
 

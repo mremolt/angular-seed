@@ -7,6 +7,19 @@ var pathToModule = function(path) {
   return path.replace(/^\/base\//, '').replace(/\.js$/, '');
 };
 
+// ie function.name polyfill
+if (Function.prototype.name === undefined && Object.defineProperty !== undefined) {
+  Object.defineProperty(Function.prototype, 'name', {
+    get: function () {
+      var funcNameRegex = /function\s([^(]{1,})\(/;
+      var results = (funcNameRegex).exec((this).toString());
+      return (results && results.length > 1) ? results[1].trim() : "";
+    },
+    set: function (value) {
+    }
+  });
+}
+
 
 Object.keys(window.__karma__.files).forEach(function(file) {
   if (TEST_REGEXP.test(file)) {
@@ -43,6 +56,8 @@ var config = {
       'exports': 'angular.mock'
     }
   },
+
+  waitSeconds: 30,
 
   // dynamically load all test files
   deps: allTestFiles,

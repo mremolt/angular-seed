@@ -3,6 +3,7 @@ require.config({
 
   paths: {
     traceur: '../../vendor/traceur-runtime/traceur-runtime',
+    domReady: '../../vendor/requirejs-domready/domReady',
     lodash: '../../vendor/lodash/dist/lodash',
     moment: '../../vendor/moment/min/moment-with-locales',
     angular: '../../vendor/angular/angular',
@@ -32,9 +33,6 @@ require.config({
   }
 });
 
-
-require(['angular', 'app'], function (angular) {
-  angular.element(document).ready(function () {
-    angular.bootstrap(document, ['dcsApp']);
-  });
+require(['domReady!', 'angular', 'traceur', 'app'], function (doc, angular) {
+  angular.bootstrap(doc, ['dcsApp']);
 });
