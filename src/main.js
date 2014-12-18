@@ -33,6 +33,6 @@ require.config({
   }
 });
 
-require(['domReady!', 'angular', 'traceur', 'app'], function (doc, angular) {
-  angular.bootstrap(doc, ['dcsApp']);
+require(['angular', 'traceur', 'app'], function (angular) {
+  angular.bootstrap(document, ['dcsApp']);
 });

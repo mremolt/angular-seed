@@ -68,7 +68,7 @@ module.exports = function (grunt) {
           hostname: '0.0.0.0',
           port: 3000,
           base: '<%= prodDir %>',
-          keepalive: false,
+          keepalive: true,
           debug: false,
           livereload: false,
           open: false
@@ -242,12 +242,15 @@ module.exports = function (grunt) {
               cwd: '<%= prodDir %>',
               files: [
                 'templates-app.js',
-                'src/build.js'
+                'src/build.js',
+                'src/main.js'
               ]
             },
             require: {
               cwd: '<%= prodDir %>',
-              files: ['vendor/almond/almond.js']
+              files: [
+                'vendor/almond/almond.js'
+              ]
             }
           }
         }
