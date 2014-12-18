@@ -58,7 +58,7 @@ module.exports = function (grunt) {
           base: '<%= devDir %>',
           keepalive: false,
           debug: false,
-          livereload: true,
+          livereload: false,
           open: false
         }
       },

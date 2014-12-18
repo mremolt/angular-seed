@@ -1,6 +1,6 @@
 var app = require('./app.js');
 
-xdescribe('angular-seed app', function() {
+describe('angular-seed app', function() {
   it('should have a title', function() {
     app.navigate();
 
@@ -14,7 +14,7 @@ xdescribe('angular-seed app', function() {
   });
 });
 
-describe('foo', function () {
+xdescribe('foo', function () {
   it('google', function () {
     browser.get('http://test.visualizer.gfk.com/#/login');
     expect(browser.getTitle()).toEqual('TODO: LOGINPAGE-TITLE | Gxl Visualizer Frontend NG');
