@@ -32,6 +32,7 @@ require.config({
   }
 });
 
+// test
 require(['angular', 'traceur', 'app'], function (angular) {
   angular.bootstrap(document, ['dcsApp']);
 });
