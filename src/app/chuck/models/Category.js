@@ -5,6 +5,7 @@ class Category {
 
   constructor(name) {
     this.name = name;
+    throw new Error('aaaaaaa');
   }
 
 

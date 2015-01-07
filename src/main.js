@@ -2,7 +2,7 @@ require.config({
   baseUrl: 'src/app',
 
   paths: {
-    traceur: '../../vendor/traceur-runtime/traceur-runtime',
+    traceur: '../../vendor/traceur_runtime',
     lodash: '../../vendor/lodash/dist/lodash',
     moment: '../../vendor/moment/min/moment-with-locales',
     angular: '../../vendor/angular/angular',
@@ -33,6 +33,6 @@ require.config({
 });
 
 // test
-require(['angular', 'traceur', 'app'], function (angular) {
+require(['angular', 'app'], function (angular) {
   angular.bootstrap(document, ['dcsApp']);
 });

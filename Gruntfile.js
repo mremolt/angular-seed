@@ -215,7 +215,9 @@ module.exports = function (grunt) {
           scripts: {
             app: {
               cwd: '<%= devDir %>',
-              files: []
+              files: [
+                'src/main.js'
+              ]
             },
             require: {
               cwd: '<%= devDir %>',
@@ -347,8 +349,11 @@ module.exports = function (grunt) {
         blockBinding: true,
         modules: 'amd',
         moduleNames: true,
-        sourceBasePackage: 'src/app',
-        sourceMaps: true
+        moduleNaming: {
+          stripPrefix: '<%= devDir %>/src/app'
+        },
+        copyRuntime: '<%= devDir %>/vendor'
+        //sourceMaps: 'inline'
       },
       app: {
         files: [{

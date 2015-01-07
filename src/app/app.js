@@ -18,4 +18,11 @@ app.config(function($httpProvider) {
   $httpProvider.defaults.useXDomain = true;
 });
 
+app.factory('$exceptionHandler', function() {
+  return function(exception, cause) {
+    console.error(exception.stack);
+    throw exception;
+  };
+});
+
 export default app;
