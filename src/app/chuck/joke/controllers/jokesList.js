@@ -1,4 +1,4 @@
-import Joke from 'chuck/models/Joke';
+import Joke from 'as/chuck/models/Joke';
 
 class JokesListController {
   constructor() {

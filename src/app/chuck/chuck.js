@@ -1,6 +1,6 @@
 import angular from 'angular';
-import router from 'router';
-import CategoryController from 'chuck/controllers/CategoryController';
+import router from 'angular-ui-router';
+import CategoryController from 'as/chuck/controllers/CategoryController';
 
 
 var mod = angular.module('dcsApp.chuck', [

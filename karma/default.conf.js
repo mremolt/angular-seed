@@ -10,35 +10,31 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'requirejs', 'traceur'],
+    frameworks: ['jspm', 'jasmine'],
 
 
     // list of files / patterns to load in the browser
-    files: [
-      'test-main.js',
-      { pattern: 'vendor/**/*.js', included: false },
-      { pattern: 'src/app/**/*.js', included: false },
-      { pattern: 'test/**/*.spec.js', included: false }
-    ],
+    //files: [
+    //  'test-main.js',
+    //  { pattern: 'vendor/**/*.js', included: false },
+    //  { pattern: 'src/app/**/*.js', included: false },
+    //  { pattern: 'test/**/*.spec.js', included: false }
+    //],
+
+    jspm: {
+      loadFiles: ['test/**/*.spec.js'],
+      serveFiles: ['src/**/*.js']
+    },
 
 
     // list of files to exclude
     exclude: [
     ],
 
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'src/app/**/*.js': ['traceur', 'coverage'],
-      'test/**/*.spec.js': ['traceur']
-    },
-
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress'],
 
 
     // web server port
@@ -65,20 +61,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
-
-    coverageReporter: {
-      // configure the reporter to use ismailia for JavaScript coverage
-      instrumenter: {
-        'src/app/**/*.js': 'ismailia'
-      },
-      reporters: [
-        {
-          type: 'text'
-        }
-      ]
-    }
-
+    singleRun: false
 
   });
 };

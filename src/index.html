@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" ng-app="dcsApp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,10 +16,15 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
-
 <div ui-view></div>
 
-<!-- build:script require --><!-- /build -->
-<!-- build:script app --><!-- /build -->
+<script src="/jspm_packages/system.js"></script>
+<script src="/config.js"></script>
+<script>
+  System.baseURL = '/';
+  // `app` is our project name, corresponding to the local `lib` folder
+  // these two properties are set in the `jspm init -p` prompts
+  System.import('src/main');
+</script>
 </body>
 </html>

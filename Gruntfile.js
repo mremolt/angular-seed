@@ -13,20 +13,6 @@ module.exports = function (grunt) {
 
   var taskConfig = {
 
-    /** installs bower_modules into vendor directory **/
-    "bower-install-simple": {
-      options: {
-        color: true,
-        directory: "vendor",
-        forceLatest: true
-      },
-      dev: {
-        options: {
-          production: false
-        }
-      }
-    },
-
     /** cleans up the given directories **/
     clean: {
       development: ['<%= devDir %>/*', '!<%= devDir %>/.gitkeep'],
@@ -37,7 +23,7 @@ module.exports = function (grunt) {
 
     concurrent: {
       build: {
-        tasks: ['bower-install', 'html2js', 'traceur:app', 'sass', 'cssmin'],
+        tasks: ['html2js', 'sass', 'cssmin'],
         options: {
           logConcurrentOutput: false
         }
@@ -58,7 +44,7 @@ module.exports = function (grunt) {
           base: '<%= devDir %>',
           keepalive: false,
           debug: false,
-          livereload: false,
+          livereload: true,
           open: false
         }
       },
@@ -79,7 +65,12 @@ module.exports = function (grunt) {
     /** copy files **/
     copy: {
       vendorJs: {
-        src: ['vendor/**/*.js', 'src/main.js'],
+        src: [
+          'src/**/*.js',
+          'config.js',
+          'jspm_packages/**/*.js',
+          'jspm_packages/**/*.js.map'
+        ],
         dest: '<%= devDir %>/'
       },
       vendorCss: {
@@ -178,11 +169,6 @@ module.exports = function (grunt) {
         options: {
           spawn: false
         }
-      },
-
-      bower: {
-        files: 'bower.json',
-        tasks: ['bower-install', 'clean:vendor', 'copy:vendorJs', 'copy:vendorCss']
       }
     },
 
@@ -285,22 +271,6 @@ module.exports = function (grunt) {
       }
     },
 
-    /** does the compile job meanwhile (we'll switch to almond in production) **/
-    requirejs: {
-      compile: {
-        options: {
-          baseUrl: 'build/development/src/app',
-          mainConfigFile: 'src/main.js',
-          name: 'app',
-          out: userConfig.prodDir + '/src/build.js',
-          optimize: 'uglify2',
-          uglify2: {
-            mangle: false
-          }
-        }
-      }
-    },
-
     jshint: {
       src: {
         files: {
@@ -342,27 +312,6 @@ module.exports = function (grunt) {
           '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css': 'src/sass/main.scss'
         }
       }
-    },
-
-    traceur: {
-      options: {
-        blockBinding: true,
-        modules: 'amd',
-        moduleNames: true,
-        moduleNaming: {
-          stripPrefix: '<%= devDir %>/src/app'
-        },
-        copyRuntime: '<%= devDir %>/vendor'
-        //sourceMaps: 'inline'
-      },
-      app: {
-        files: [{
-          expand: true,
-          cwd: '.',
-          src: ['src/app/**/*.js'],
-          dest: '<%= devDir %>/'
-        }]
-      }
     }
 
   };
@@ -381,15 +330,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
 
-  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'requirejs', 'copyProd', 'index:production']);
+  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'copyProd', 'index:production']);
 
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('copyDev', ['copy:vendorJs', 'copy:vendorCss', 'copy:assets']);
 
-  grunt.registerTask('copyProd', ['copy:assetsProd', 'copy:jsProd', 'copy:almond']);
-
-  grunt.registerTask("bower-install", ["bower-install-simple"]);
+  grunt.registerTask('copyProd', ['copy:assetsProd', 'copy:jsProd']);
 
   grunt.registerTask('watch', ['build', 'delta']);
 };

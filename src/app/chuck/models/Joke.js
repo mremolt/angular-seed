@@ -1,4 +1,4 @@
-import restBackend from 'backend/services/restBackend';
+import restBackend from 'as/backend/services/restBackend';
 import Category from './Category';
 import _ from 'lodash';
 

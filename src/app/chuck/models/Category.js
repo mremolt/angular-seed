@@ -1,11 +1,10 @@
-import restBackend from 'backend/services/restBackend';
-
+import restBackend from 'as/backend/services/restBackend';
+import _ from 'lodash';
 
 class Category {
 
   constructor(name) {
     this.name = name;
-    throw new Error('aaaaaaa');
   }
 
 

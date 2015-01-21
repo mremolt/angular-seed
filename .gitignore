@@ -3,4 +3,5 @@ build/*
 vendor/*
 node_modules
 sauce.json
+jspm_packages/*
 

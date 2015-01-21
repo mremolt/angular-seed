@@ -1,9 +1,9 @@
 import angular from 'angular';
 import dashboard from '../_dashboard';
 import Controller from '../controllers/home';
-import categoriesDirective from 'chuck/category/directives/categories';
-import jokeDirective from 'chuck/joke/directives/joke';
-import jokesListDirective from 'chuck/joke/directives/jokesList';
+import categoriesDirective from 'as/chuck/category/directives/categories';
+import jokeDirective from 'as/chuck/joke/directives/joke';
+import jokesListDirective from 'as/chuck/joke/directives/jokesList';
 
 
 export default dashboard.directive('home', function () {

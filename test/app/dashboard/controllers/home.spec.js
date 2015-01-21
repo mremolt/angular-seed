@@ -1,7 +1,7 @@
-import HomeController from 'dashboard/controllers/home';
+import HomeController from 'as/dashboard/controllers/home';
 import angular from 'angular';
-import angularMocks from 'angularMocks';
-import Joke from 'chuck/models/Joke';
+import angularMocks from 'angular-mocks';
+import Joke from 'as/chuck/models/Joke';
 
 
 describe('HomeController', function () {
@@ -10,6 +10,7 @@ describe('HomeController', function () {
 
   beforeEach(function () {
     module('dcsApp.dashboard');
+
   });
 
   beforeEach(inject(function ($injector) {

@@ -1,4 +1,4 @@
-import mod from 'chuck/chuck';
+import mod from 'as/chuck/chuck';
 import Controller from '../controllers/joke';
 
 export default mod.directive('joke', function () {

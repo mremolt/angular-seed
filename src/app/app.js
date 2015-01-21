@@ -1,10 +1,10 @@
 import angular from 'angular';
-import sanitize from 'angularSanitize';
-import router from 'router';
-import templates from 'templates';
+import sanitize from 'angular-sanitize';
+import router from 'angular-ui-router';
+import templates from 'templates-app';
 
-import homeDirective from 'dashboard/directives/home';
-import backendMod from 'backend/backend';
+import homeDirective from 'as/dashboard/directives/home';
+import backendMod from 'as/backend/backend';
 
 var app = angular.module('dcsApp', [
   'ui.router',
@@ -16,6 +16,7 @@ var app = angular.module('dcsApp', [
 
 app.config(function($httpProvider) {
   $httpProvider.defaults.useXDomain = true;
+  console.log('hier');
 });
 
 app.factory('$exceptionHandler', function() {
