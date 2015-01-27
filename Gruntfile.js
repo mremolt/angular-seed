@@ -68,6 +68,7 @@ module.exports = function (grunt) {
         src: [
           'src/**/*.js',
           'config.js',
+          'package.json',
           'jspm_packages/**/*.js',
           'jspm_packages/**/*.js.map'
         ],
@@ -91,14 +92,19 @@ module.exports = function (grunt) {
       },
       jsProd: {
         cwd: '<%= devDir %>',
-        src: ['src/build.js', 'src/main.js'],
+        src: [
+          'jspm_packages/traceur-runtime.js',
+          'jspm_packages/traceur-runtime.js.map',
+          'jspm_packages/system.js',
+          'jspm_packages/system.js.map',
+          'jspm_packages/es6-module-loader.js',
+          'jspm_packages/es6-module-loader.js.map',
+          'config.js',
+          'src/build.js',
+          'src/build.js.map',
+          'src/main.js'
+        ],
         dest: '<%= prodDir %>',
-        expand: true
-      },
-      almond: {
-        cwd: '<%= devDir %>/vendor/almond',
-        src: ['almond.js'],
-        dest: '<%= prodDir %>/vendor/almond/',
         expand: true
       }
     },
@@ -202,12 +208,9 @@ module.exports = function (grunt) {
             app: {
               cwd: '<%= devDir %>',
               files: [
-                'src/main.js'
+                'jspm_packages/system.js',
+                'config.js'
               ]
-            },
-            require: {
-              cwd: '<%= devDir %>',
-              files: ['vendor/requirejs/require.js']
             }
           }
         }
@@ -229,15 +232,10 @@ module.exports = function (grunt) {
             app: {
               cwd: '<%= prodDir %>',
               files: [
-                'templates-app.js',
-                'src/build.js',
-                'src/main.js'
-              ]
-            },
-            require: {
-              cwd: '<%= prodDir %>',
-              files: [
-                'vendor/almond/almond.js'
+                'jspm_packages/traceur-runtime.js',
+                'jspm_packages/system.js',
+                'config.js',
+                'src/build.js'
               ]
             }
           }
@@ -312,6 +310,23 @@ module.exports = function (grunt) {
           '<%= devDir %>/src/assets/<%= pkg.name %>-<%= pkg.version %>.css': 'src/sass/main.scss'
         }
       }
+    },
+
+    shell: {
+      hello: {
+        command: 'echo "Hello World"'
+      },
+
+      jspm_install: {
+        command: 'node_modules/jspm/jspm.js install'
+      },
+
+      jspm_build: {
+        command: 'cd <%= devDir %> && ../../node_modules/jspm/jspm.js bundle src/main src/build.js',
+        options: {
+          cwd: '<%= devDir %>'
+        }
+      }
     }
 
   };
@@ -328,9 +343,9 @@ module.exports = function (grunt) {
 
   // Default task(s).
 
-  grunt.registerTask('build', ['clean', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
+  grunt.registerTask('build', ['clean', 'shell:jspm_install', 'concurrent:build', 'copyDev', 'index:development', 'connect:development']);
 
-  grunt.registerTask('compile', ['clean', 'concurrent:build', 'copyDev', 'ngAnnotate', 'copyProd', 'index:production']);
+  grunt.registerTask('compile', ['clean', 'shell:jspm_install', 'concurrent:build', 'copyDev', 'ngAnnotate', 'shell:jspm_build', 'copyProd', 'index:production']);
 
   grunt.registerTask('default', ['build']);
 
